@@ -1,15 +1,142 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Gabriel Madero Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gabriel Madero — Portfolio</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
-  <h1 style="color: red; text-align: center;">
-    NEW PORTFOLIO IS WORKING
-  </h1>
-  <p style="text-align: center;">
-    If you see this, GitHub Pages is loading index.html correctly.
-  </p>
+  <header class="container header">
+    <a class="brand" href="./">
+      <span class="name">Gabriel Madero</span>
+      <span class="tag">Digital Arts • Photography • Game Dev</span>
+    </a>
+
+    <nav class="nav">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-left">
+        <h1>Portfolio</h1>
+        <p>
+          I create digital photography, Photoshop edits, and interactive Unity projects.
+          I like mixing art + technical work to build strong visuals and experiences.
+        </p>
+
+        <div class="actions">
+          <a class="btn" href="#work">View work</a>
+          <a class="btn ghost" href="https://github.com/maderog77" target="_blank" rel="noreferrer">
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <!-- Replace this image later with your best work -->
+        <img class="hero-img" src="assets/hero.jpg" alt="Featured work preview">
+      </div>
+    </section>
+
+    <section id="work" class="section">
+      <div class="section-title">
+        <h2>Selected Work</h2>
+        <p>Click a section to view projects.</p>
+      </div>
+
+      <div class="grid">
+        <a class="card" href="projects/digital-photography.html">
+          <img src="assets/photo-cover.jpg" alt="Digital Photography preview">
+          <div class="card-body">
+            <h3>Digital Photography</h3>
+            <p>Series work, composition, and editing choices.</p>
+            <div class="chips">
+              <span>Photography</span><span>Lightroom</span><span>Composition</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="card" href="projects/photoshop.html">
+          <img src="assets/photoshop-cover.jpg" alt="Photoshop preview">
+          <div class="card-body">
+            <h3>Photoshop</h3>
+            <p>Composites, visual experiments, and concept edits.</p>
+            <div class="chips">
+              <span>Photoshop</span><span>Editing</span><span>Design</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="card" href="projects/unity.html">
+          <img src="assets/unity-cover.jpg" alt="Unity preview">
+          <div class="card-body">
+            <h3>Unity Projects</h3>
+            <p>Game prototypes and interactive systems.</p>
+            <div class="chips">
+              <span>Unity</span><span>C#</span><span>Game Dev</span>
+            </div>
+          </div>
+        </a>
+
+        <a class="card" href="projects/generative.html">
+          <img src="assets/generative-cover.jpg" alt="Generative art preview">
+          <div class="card-body">
+            <h3>Generative / Procedural</h3>
+            <p>Algorithm-driven visuals: noise, patterns, and experiments.</p>
+            <div class="chips">
+              <span>Python</span><span>Perlin</span><span>Generative</span>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section id="about" class="section about">
+      <div>
+        <h2>About</h2>
+        <p>
+          I’m a Computer Science major with a minor in Digital Arts. I enjoy building
+          visuals with strong composition and also creating technical tools (Unity + code)
+          that support creative work.
+        </p>
+      </div>
+
+      <div class="about-box">
+        <div class="about-row">
+          <span>Focus</span>
+          <p>Photography, digital editing, interactive projects</p>
+        </div>
+        <div class="about-row">
+          <span>Tools</span>
+          <p>Photoshop, Lightroom, Unity, Blender, Python</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact">
+      <h2>Contact</h2>
+      <p>
+        <a href="mailto:youremail@example.com">youremail@example.com</a>
+        <span class="dot">•</span>
+        <a href="https://github.com/maderog77" target="_blank" rel="noreferrer">GitHub</a>
+        <span class="dot">•</span>
+        <a href="#" target="_blank" rel="noreferrer">LinkedIn</a>
+      </p>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <p>© <span id="y"></span> Gabriel Madero</p>
+  </footer>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
