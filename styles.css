@@ -302,3 +302,24 @@ body{
     grid-template-columns: 1fr;
   }
 }
+
+/* ================= PHOTOSHOP GALLERY (show full image) ================= */
+
+.ps-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap:16px;
+  margin-top:24px;
+}
+
+.ps-grid img{
+  width:100%;
+  height:auto;              /* key: no fixed height */
+  object-fit: contain;      /* key: don't crop */
+  border-radius:14px;
+  border:1px solid var(--border);
+  box-shadow: 0 6px 16px rgba(0,0,0,.25);
+  background: rgba(255,255,255,.03);
+  display:block;
+}
+
