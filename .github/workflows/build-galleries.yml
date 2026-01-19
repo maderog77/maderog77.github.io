@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "assets/digital-photography/**"
+      - "assets/photoshop/**"
       - ".github/workflows/build-galleries.yml"
   workflow_dispatch:
 
@@ -17,42 +18,46 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Generate photos.json
+      - name: Generate galleries
         run: |
           python3 - <<'PY'
           import os, json
 
-          folder = "assets/digital-photography"
-          out = os.path.join(folder, "photos.json")
+          galleries = {
+            "assets/digital-photography": "Digital Photography",
+            "assets/photoshop": "Photoshop"
+          }
 
           exts = {".png", ".jpg", ".jpeg", ".webp", ".gif"}
-          files = []
 
-          os.makedirs(folder, exist_ok=True)
+          for folder in galleries:
+            out = os.path.join(folder, "photos.json")
+            os.makedirs(folder, exist_ok=True)
+            files = []
 
-          for name in os.listdir(folder):
-            path = os.path.join(folder, name)
-            if os.path.isfile(path):
-              _, ext = os.path.splitext(name)
-              if ext.lower() in exts and name != "photos.json":
-                files.append(name)
+            for name in os.listdir(folder):
+              path = os.path.join(folder, name)
+              if os.path.isfile(path):
+                _, ext = os.path.splitext(name)
+                if ext.lower() in exts and name != "photos.json":
+                  files.append(name)
 
-          files.sort(key=lambda s: s.lower())
+            files.sort(key=lambda s: s.lower())
 
-          with open(out, "w", encoding="utf-8") as f:
-            json.dump(files, f, indent=2)
+            with open(out, "w", encoding="utf-8") as f:
+              json.dump(files, f, indent=2)
 
-          print(f"Wrote {out} with {len(files)} images.")
+            print(f"Wrote {out} with {len(files)} images.")
           PY
 
-      - name: Commit photos.json if changed
+      - name: Commit photos.json files if changed
         run: |
-          if git status --porcelain | grep -q "assets/digital-photography/photos.json"; then
+          if git status --porcelain | grep -q "photos.json"; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add assets/digital-photography/photos.json
-            git commit -m "Auto-update digital photography photos.json"
+            git add assets/**/photos.json
+            git commit -m "Auto-update gallery photos.json files"
             git push
           else
-            echo "No changes to commit."
+            echo "No gallery updates needed."
           fi
