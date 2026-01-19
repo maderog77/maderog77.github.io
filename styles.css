@@ -11,6 +11,7 @@
 
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
+
 body{
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial;
   background:
@@ -235,7 +236,7 @@ body{
   padding-bottom:28px;
 }
 
-/* ================= PHOTO GALLERY (DIGITAL PHOTOGRAPHY PAGE) ================= */
+/* ================= PHOTO GALLERY (Photography & Photoshop Pages) ================= */
 
 .photo-grid{
   display:grid;
@@ -258,6 +259,28 @@ body{
 .photo-grid img:hover{
   transform: scale(1.03);
   box-shadow: 0 10px 22px rgba(0,0,0,.35);
+}
+
+/* ================= PHOTOSHOP TOOLS BOX ================= */
+
+.ps-tools{
+  margin-top:16px;
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.03);
+  border-radius:14px;
+  padding:12px 14px;
+  max-width:70ch;
+}
+
+.ps-tools span{
+  color:var(--muted);
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+.ps-tools p{
+  margin:8px 0 0;
 }
 
 /* ================= RESPONSIVE ================= */
