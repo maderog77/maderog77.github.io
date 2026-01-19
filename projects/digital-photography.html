@@ -17,6 +17,7 @@
 
     <nav class="nav">
       <a href="../index.html#work">Work</a>
+      <a href="../index.html#about">About</a>
       <a href="../index.html#contact">Contact</a>
     </nav>
   </header>
@@ -26,17 +27,34 @@
     <h2>Digital Photography</h2>
     <p style="color: var(--muted); max-width: 70ch;">
       A collection of photographs focused on mood, composition, and visual storytelling.
-      These works explore how lighting, framing, and subject placement shape emotional tone.
+      New images are automatically added when they are placed in the digital-photography folder.
     </p>
 
-    <!-- PHOTO GALLERY -->
-    <div class="photo-grid">
-      <img src="../assets/digital-photography/photo1.jpg" alt="Photography work 1">
-      <img src="../assets/digital-photography/photo2.jpg" alt="Photography work 2">
-      <img src="../assets/digital-photography/photo3.png" alt="Photography work 3">
-      <img src="../assets/digital-photography/photo4.jpg" alt="Photography work 4">
-    </div>
+    <!-- AUTO-GENERATED GALLERY -->
+    <div class="photo-grid" id="photoGrid"></div>
   </main>
+
+  <!-- SCRIPT THAT LOADS THE GALLERY -->
+  <script>
+    fetch("../assets/digital-photography/photos.json", { cache: "no-store" })
+      .then(response => response.json())
+      .then(files => {
+        const grid = document.getElementById("photoGrid");
+        grid.innerHTML = "";
+
+        files.forEach((file, index) => {
+          const img = document.createElement("img");
+          img.src = `../assets/digital-photography/${file}`;
+          img.alt = `Photography work ${index + 1}`;
+          grid.appendChild(img);
+        });
+      })
+      .catch(error => {
+        console.error(error);
+        document.getElementById("photoGrid").innerHTML =
+          "<p style='color: var(--muted)'>Gallery failed to load. Check photos.json.</p>";
+      });
+  </script>
 
 </body>
 </html>
