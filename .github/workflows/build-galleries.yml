@@ -1,0 +1,58 @@
+name: Build Galleries
+
+on:
+  push:
+    paths:
+      - "assets/photography/**"
+      - ".github/workflows/build-galleries.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate photos.json
+        run: |
+          python3 - <<'PY'
+          import os, json
+
+          folder = "assets/photography"
+          out = os.path.join(folder, "photos.json")
+
+          exts = {".png", ".jpg", ".jpeg", ".webp", ".gif"}
+          files = []
+
+          if os.path.isdir(folder):
+            for name in os.listdir(folder):
+              path = os.path.join(folder, name)
+              if os.path.isfile(path):
+                base, ext = os.path.splitext(name)
+                if ext.lower() in exts and name != "photos.json":
+                  files.append(name)
+
+          # Optional: sort alphabetically (recommended)
+          files.sort(key=lambda s: s.lower())
+
+          with open(out, "w", encoding="utf-8") as f:
+            json.dump(files, f, indent=2)
+
+          print(f"Wrote {out} with {len(files)} images.")
+          PY
+
+      - name: Commit photos.json if changed
+        run: |
+          if git status --porcelain | grep -q "assets/photography/photos.json"; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add assets/photography/photos.json
+            git commit -m "Auto-update photography photos.json"
+            git push
+          else
+            echo "No changes to commit."
+          fi
