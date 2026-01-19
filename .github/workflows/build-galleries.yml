@@ -3,7 +3,7 @@ name: Build Galleries
 on:
   push:
     paths:
-      - "assets/photography/**"
+      - "assets/digital-photography/**"
       - ".github/workflows/build-galleries.yml"
   workflow_dispatch:
 
@@ -22,21 +22,21 @@ jobs:
           python3 - <<'PY'
           import os, json
 
-          folder = "assets/photography"
+          folder = "assets/digital-photography"
           out = os.path.join(folder, "photos.json")
 
           exts = {".png", ".jpg", ".jpeg", ".webp", ".gif"}
           files = []
 
-          if os.path.isdir(folder):
-            for name in os.listdir(folder):
-              path = os.path.join(folder, name)
-              if os.path.isfile(path):
-                base, ext = os.path.splitext(name)
-                if ext.lower() in exts and name != "photos.json":
-                  files.append(name)
+          os.makedirs(folder, exist_ok=True)
 
-          # Optional: sort alphabetically (recommended)
+          for name in os.listdir(folder):
+            path = os.path.join(folder, name)
+            if os.path.isfile(path):
+              _, ext = os.path.splitext(name)
+              if ext.lower() in exts and name != "photos.json":
+                files.append(name)
+
           files.sort(key=lambda s: s.lower())
 
           with open(out, "w", encoding="utf-8") as f:
@@ -47,11 +47,11 @@ jobs:
 
       - name: Commit photos.json if changed
         run: |
-          if git status --porcelain | grep -q "assets/photography/photos.json"; then
+          if git status --porcelain | grep -q "assets/digital-photography/photos.json"; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add assets/photography/photos.json
-            git commit -m "Auto-update photography photos.json"
+            git add assets/digital-photography/photos.json
+            git commit -m "Auto-update digital photography photos.json"
             git push
           else
             echo "No changes to commit."
